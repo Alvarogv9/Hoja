@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoja - Plant Boutique</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header id="main-header">
+        <div class="container header-content">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="LOGO SIN FONDO-Photoroom.png" alt="HOJA Logo" class="logo-img">
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="#catalogo">Catálogo</a></li>
+                    <li><a href="#contacto" class="btn-contact">Contacto</a></li>
+                    <li class="search-box">
+                        <input type="text" id="search-input" placeholder="Buscar planta..." onkeyup="applyFilters()">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </li>
+                    <li class="cart-icon" onclick="toggleCart()">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span id="cart-count">0</span>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Tu Carrito</h3>
+            <span class="close-cart" onclick="toggleCart()">&times;</span>
+        </div>
+        <div id="cart-items" class="cart-items">
+            <p class="empty-cart-msg">Tu carrito está vacío.</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Referencia:</span>
+                <span id="cart-total-price">S/ 0.00</span>
+            </div>
+            <button class="btn-primary full-width" onclick="checkoutWhatsApp()">
+                <i class="fa-brands fa-whatsapp"></i> Enviar Pedido
+            </button>
+            <div class="cart-actions">
+                <button class="btn-secondary small-btn" onclick="toggleCart()">Seguir Comprando</button>
+                <button class="btn-secondary small-btn btn-danger" onclick="clearCart()">Vaciar Carrito</button>
+            </div>
+        </div>
+    </div>
+    <div id="cart-overlay" class="cart-overlay" onclick="toggleCart()"></div>
+
+    <div class="marquee-container" id="marquee-section">
+        <div class="marquee-content">
+            <span>• PAISAJISMO EN MINIATURA • ARTE VIVO • DISEÑO EXCLUSIVO • HOJA PLANT BOUTIQUE • CONEXIÓN NATURAL • HECHO A MANO •</span>
+            <span>• PAISAJISMO EN MINIATURA • ARTE VIVO • DISEÑO EXCLUSIVO • HOJA PLANT BOUTIQUE • CONEXIÓN NATURAL • HECHO A MANO •</span>
+        </div>
+    </div>
+
+    <section id="hero-section" class="hero">
+        <div class="hero-overlay">
+            <div class="container hero-text reveal">
+                <h2>Naturaleza diseñada para tu espacio</h2>
+                <p>Descubre el arte del paisajismo en miniatura. Terrarios exclusivos y diseño botánico de autor.</p>
+                <a href="#catalogo" class="btn-primary">Ver Colección</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about-section" class="section-padding reveal">
+        <div class="container about-grid">
+            <div class="about-img">
+                <img src="Imagen 0.png" alt="Nuestra Esencia Hoja">
+            </div>
+            <div class="about-text">
+                <h3>Nuestra Esencia</h3>
+                <p>Hoja es la primera boutique botánica online en Perú especializada en paisajismo en miniatura y diseño de autor. Bajo la dirección de nuestra fundadora, <em>Nicolle Ruiz</em>, transformamos la botánica tradicional en objetos de diseño interior sofisticado.</p>
+                <p>Nuestra propuesta destaca por ofrecer piezas vivas exclusivas: desde plantas de interior y bonsáis de colección, hasta nuestro producto estrella, los terrarios estilo paisaje. Estas creaciones son obras de arte manufacturadas que recrean ecosistemas naturales (como montañas o lomas) dentro de cristal, introduciendo una tendencia estética única en el país.</p>
+                <div class="features">
+                    <div class="feature-item"><i class="fa-solid fa-gem"></i> Exclusividad</div>
+                    <div class="feature-item"><i class="fa-solid fa-seedling"></i> Biofilia</div>
+                    <div class="feature-item"><i class="fa-solid fa-heart"></i> Arte Vivo</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="search-results-header" class="container" style="display: none; padding-top: 40px; text-align: center;">
+        <h2 class="section-title">Resultados de búsqueda</h2>
+        <a href="index.html" class="btn-secondary">Borrar búsqueda y ver todo</a>
+    </div>
+
+    <section id="catalogo" class="section-padding bg-light reveal">
+        <div class="container">
+            <h3 class="section-title" id="catalog-title">Nuestras Creaciones</h3>
+            
+            <div class="catalog-controls">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="setCategory('all')" data-category="all">Todos</button>
+                    <button class="filter-btn" onclick="setCategory('terrario')" data-category="terrario">Terrarios</button>
+                    <button class="filter-btn" onclick="setCategory('suculenta')" data-category="suculenta">Suculentas</button>
+                    <button class="filter-btn" onclick="setCategory('bonsai')" data-category="bonsai">Bonsáis</button>
+                    <button class="filter-btn" onclick="setCategory('trepadora')" data-category="trepadora">Trepadoras</button>
+                    <button class="filter-btn" onclick="setCategory('colgante')" data-category="colgante">Colgantes</button>
+                    <button class="filter-btn" onclick="setCategory('ornamental')" data-category="ornamental">Ornamentales</button>
+                    <button class="filter-btn" onclick="setCategory('exotica')" data-category="exotica">Exóticas</button>
+                    <button class="filter-btn" onclick="setCategory('accesorios')" data-category="accesorios">Accesorios</button>
+                </div>
+                <div class="sort-box">
+                    <label for="sort-select"><i class="fa-solid fa-arrow-down-short-wide"></i> Ordenar:</label>
+                    <select id="sort-select" onchange="applyFilters()">
+                        <option value="default">Relevancia</option>
+                        <option value="asc">Precio: Menor a Mayor</option>
+                        <option value="desc">Precio: Mayor a Menor</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="product-grid-filter" id="product-grid">
+                <div class="product-card" data-category="suculenta exotica" data-price="15" data-keywords="sol resistente exterior principiante pequeña barata"><div class="product-img"><img src="producto1.png" alt="Siempreviva"></div><div class="product-info"><h4>Siempreviva Telaraña</h4><p>Rosetas verdes con filamentos.</p><span class="price">S/ 15.00</span><div class="btn-group"><button class="btn-secondary" onclick="openModal('modal1')">Ver Detalle</button><button class="btn-icon" onclick="addToCart('Siempreviva Telaraña', 15, 'producto1.png')"><i class="fa-solid fa-cart-plus"></i></button></div></div></div>
+                <div class="product-card" data-category="trepadora colgante" data-price="37" data-keywords="interior maceta blanca variegada oficina"><div class="product-img"><img src="producto2.png" alt="Pothos N´Joy"></div><div class="product-info"><h4>Pothos N´Joy</h4><p>Variegación blanco-crema.</p><span class="price">S/ 37.00</span><div class="btn-group"><button class="btn-secondary" onclick="openModal('modal2')">Ver Detalle</button><button class="btn-icon" onclick="addToCart('Pothos N´Joy', 37, 'producto2.png')"><i class="fa-solid fa-cart-plus"></i></button></div></div></div>
+                <div class="product-card" data-category="trepadora colgante" data-price="43" data-keywords="tropical huecos moderna instagram tendencia"><div class="product-img"><img src="producto3.png" alt="Monstera"></div><div class="product-info"><h4>Monstera Adansonii</h4><p>Hojas con fenestraciones.</p><span class="price">S/ 43.00</span><div class="btn-group"><button class="btn-secondary" onclick="openModal('modal3')">Ver Detalle</button><button class="btn-icon" onclick="addToCart('Monstera Adansonii', 43, 'producto3.png')"><i class="fa-solid fa-cart-plus"></i></button></div></div></div>
+                <div class="product-card" data-category="bonsai suculenta" data-price="45" data-keywords="arbol suerte dinero regalo jefe escritorio"><div class="product-img"><img src="producto4.png" alt="Bonsái Jade"></div><div class="product-info"><h4>Bonsái de Jade</h4><p>Símbolo de prosperidad.</p><span class="price">S/ 45.00</span><div class="btn-group"><button class="btn-secondary" onclick="openModal('modal4')">Ver Detalle</button><button class="btn-icon" onclick="addToCart('Bonsái de Jade', 45, 'producto4.png')"><i class="fa-solid fa-cart-plus"></i></button></div></div></div>
+                <div class="product-card" data-category="ornamental exotica" data-price="40" data-keywords="sandia rayas redonda divertida niños"><div class="product-img"><img src="producto5.png" alt="Pilea"></div><div class="product-info"><h4>Pilea Watermelon</h4><p>Hojas tipo sandía.</p><span class="price">S/ 40.00</span><div class="btn-group"><button class="btn-secondary" onclick="openModal('modal5')">Ver Detalle</button><button class="btn-icon" onclick="addToCart('Pilea Watermelon', 40, 'producto5.png')"><i class="fa-solid fa-cart-plus"></i></button></div></div></div>
+                <div class="product-card" data-category="ornamental" data-price="61" data-keywords="grande interior toxica hoja ancha tropical"><div class="product-img"><img src="producto6.png" alt="Dieffenbachia"></div><div class="product-info"><h4>Dieffenbachia Camille</h4><p>Hojas grandes crema.</p><span class="price">S/ 61.00</span><div class="btn-group"><button class="btn-secondary" onclick="openModal('modal6')">Ver Detalle</button><button class="btn-icon" onclick="addToCart('Dieffenbachia Camille', 61, 'producto6.png')"><i class="fa-solid fa-cart-plus"></i></button></div></div></div>
+                <div class="product-card" data-category="trepadora colgante" data-price="37" data-keywords="fluor limon brillante moderna joven"><div class="product-img"><img src="producto7.png" alt="Pothos Neon"></div><div class="product-info"><h4>Pothos Neon</h4><p>Color verde lima intenso.</p><span class="price">S/ 37.00</span><div class="btn-group"><button class="btn-secondary" onclick="openModal('modal7')">Ver Detalle</button><button class="btn-icon" onclick="addToCart('Pothos Neon', 37, 'producto7.png')"><i class="fa-solid fa-cart-plus"></i></button></div></div></div>
+                <div class="product-card" data-category="suculenta" data-price="12" data-keywords="shrek pelicula rara barata curiosa"><div class="product-img"><img src="producto8.png" alt="Shrek"></div><div class="product-info"><h4>Orejas de Shrek</h4><p>Hojas con punta de ventosa.</p><span class="price">S/ 12.00</span><div class="btn-group"><button class="btn-secondary" onclick="openModal('modal8')">Ver Detalle</button><button class="btn-icon" onclick="addToCart('Orejas de Shrek', 12, 'producto8.png')"><i class="fa-solid fa-cart-plus"></i></button></div></div></div>
+                <div class="product-card" data-category="colgante suculenta" data-price="18" data-keywords="bolitas cadena perlas repisa estante"><div class="product-img"><img src="producto9.png" alt="Rosario"></div><div class="product-info"><h4>Rosario de Perlas</h4><p>Esferas verdes colgantes.</p><span class="price">S/ 18.00</span><div class="btn-group"><button class="btn-secondary" onclick="openModal('modal9')">Ver Detalle</button><button class="btn-icon" onclick="addToCart('Rosario de Perlas', 18, 'producto9.png')"><i class="fa-solid fa-cart-plus"></i></button></div></div></div>
+                <div class="product-card" data-category="accesorios" data-price="0" data-keywords="palo soporte guia trepadora crecimiento"><div class="product-img"><img src="producto10.png" alt="Tutor"></div><div class="product-info"><h4>Tutor de Musgo</h4><p>Soporte vertical natural.</p><span class="price">A cotizar</span><div class="btn-group"><button class="btn-secondary" onclick="openModal('modal10')">Ver Detalle</button><button class="btn-icon" onclick="addToCart('Tutor de Musgo', 0, 'producto10.png')"><i class="fa-solid fa-cart-plus"></i></button></div></div></div>
+                <div class="product-card" data-category="ornamental exotica" data-price="75" data-keywords="rayas rosada elegante premium noche"><div class="product-img"><img src="producto11.png" alt="Calathea"></div><div class="product-info"><h4>Calathea Ornata</h4><p>Hojas con líneas rosadas.</p><span class="price">S/ 75.00</span><div class="btn-group"><button class="btn-secondary" onclick="openModal('modal11')">Ver Detalle</button><button class="btn-icon" onclick="addToCart('Calathea Ornata', 75, 'producto11.png')"><i class="fa-solid fa-cart-plus"></i></button></div></div></div>
+                <div class="product-card" data-category="exotica" data-price="65" data-keywords="carnivora mosca insecto dientes rara"><div class="product-img"><img src="producto12.png" alt="Venus"></div><div class="product-info"><h4>Venus Atrapamoscas</h4><p>Planta carnívora.</p><span class="price">S/ 65.00</span><div class="btn-group"><button class="btn-secondary" onclick="openModal('modal12')">Ver Detalle</button><button class="btn-icon" onclick="addToCart('Venus Atrapamoscas', 65, 'producto12.png')"><i class="fa-solid fa-cart-plus"></i></button></div></div></div>
+                <div class="product-card" data-category="ornamental" data-price="35" data-keywords="flores rojo espinas sol resistente"><div class="product-img"><img src="producto13.png" alt="Corona"></div><div class="product-info"><h4>Corona de Cristo</h4><p>Flores todo el año.</p><span class="price">S/ 35.00</span><div class="btn-group"><button class="btn-secondary" onclick="openModal('modal13')">Ver Detalle</button><button class="btn-icon" onclick="addToCart('Corona de Cristo', 35, 'producto13.png')"><i class="fa-solid fa-cart-plus"></i></button></div></div></div>
+                <div class="product-card" data-category="ornamental exotica" data-price="82" data-keywords="colorida morado fucsia movimiento premium"><div class="product-img"><img src="producto14.png" alt="Stromanthe"></div><div class="product-info"><h4>Stromanthe Tricolor</h4><p>Patrón verde, crema y rosado.</p><span class="price">S/ 82.00</span><div class="btn-group"><button class="btn-secondary" onclick="openModal('modal14')">Ver Detalle</button><button class="btn-icon" onclick="addToCart('Stromanthe Tricolor', 82, 'producto14.png')"><i class="fa-solid fa-cart-plus"></i></button></div></div></div>
+                <div class="product-card" data-category="ornamental" data-price="35" data-keywords="colores jardin facil crecimiento rapido"><div class="product-img"><img src="producto15.png" alt="Coleus"></div><div class="product-info"><h4>Coleus</h4><p>Hojas dentadas y coloridas.</p><span class="price">S/ 35.00</span><div class="btn-group"><button class="btn-secondary" onclick="openModal('modal15')">Ver Detalle</button><button class="btn-icon" onclick="addToCart('Coleus', 35, 'producto15.png')"><i class="fa-solid fa-cart-plus"></i></button></div></div></div>
+                <div class="product-card" data-category="ornamental" data-price="45" data-keywords="dibujo patron sombra humedad"><div class="product-img"><img src="producto16.png" alt="Goeppertia"></div><div class="product-info"><h4>Goeppertia</h4><p>Patrones verdes oscuros.</p><span class="price">S/ 45.00</span><div class="btn-group"><button class="btn-secondary" onclick="openModal('modal16')">Ver Detalle</button><button class="btn-icon" onclick="addToCart('Goeppertia', 45, 'producto16.png')"><i class="fa-solid fa-cart-plus"></i></button></div></div></div>
+                <div class="product-card" data-category="trepadora ornamental" data-price="85" data-keywords="gigante monstera deliciosa salon esquina"><div class="product-img"><img src="producto17.png" alt="Costilla"></div><div class="product-info"><h4>Costilla de Adán</h4><p>Hojas grandes con agujeros.</p><span class="price">S/ 85.00</span><div class="btn-group"><button class="btn-secondary" onclick="openModal('modal17')">Ver Detalle</button><button class="btn-icon" onclick="addToCart('Costilla de Adán', 85, 'producto17.png')"><i class="fa-solid fa-cart-plus"></i></button></div></div></div>
+                <div class="product-card" data-category="suculenta" data-price="75" data-keywords="madera arreglo centro mesa regalo rustico"><div class="product-img"><img src="producto18.png" alt="Jardinera"></div><div class="product-info"><h4>Jardinera Suculentas</h4><p>Arreglo en madera natural.</p><span class="price">S/ 75.00</span><div class="btn-group"><button class="btn-secondary" onclick="openModal('modal18')">Ver Detalle</button><button class="btn-icon" onclick="addToCart('Jardinera de Suculentas', 75, 'producto18.png')"><i class="fa-solid fa-cart-plus"></i></button></div></div></div>
+                <div class="product-card" data-category="bonsai" data-price="85" data-keywords="arbolito zen regalo exclusivo lujo"><div class="product-img"><img src="producto19.png" alt="Bonsai Aralia"></div><div class="product-info"><h4>Bonsái Aralia</h4><p>Paisaje vivo de calma.</p><span class="price">S/ 85.00</span><div class="btn-group"><button class="btn-secondary" onclick="openModal('modal19')">Ver Detalle</button><button class="btn-icon" onclick="addToCart('Bonsái Aralia', 85, 'producto19.png')"><i class="fa-solid fa-cart-plus"></i></button></div></div></div>
+                <div class="product-card" data-category="terrario" data-price="65" data-keywords="vidrio paisaje musgo cerrado ecosistema"><div class="product-img"><img src="producto20.png" alt="Lomas"></div><div class="product-info"><h4>Terrario "Lomas"</h4><p>Paisaje de lomas de musgo.</p><span class="price">S/ 65.00</span><div class="btn-group"><button class="btn-secondary" onclick="openModal('modal20')">Ver Detalle</button><button class="btn-icon" onclick="addToCart('Terrario Lomas', 65, 'producto20.png')"><i class="fa-solid fa-cart-plus"></i></button></div></div></div>
+                <div class="product-card" data-category="terrario" data-price="65" data-keywords="piedra cueva misterio vidrio"><div class="product-img"><img src="producto21.png" alt="Cuevas"></div><div class="product-info"><h4>Terrario "Cuevas"</h4><p>Paisaje con cuevas.</p><span class="price">S/ 65.00</span><div class="btn-group"><button class="btn-secondary" onclick="openModal('modal21')">Ver Detalle</button><button class="btn-icon" onclick="addToCart('Terrario Cuevas', 65, 'producto21.png')"><i class="fa-solid fa-cart-plus"></i></button></div></div></div>
+                <div class="product-card" data-category="terrario" data-price="65" data-keywords="desierto arena cactus seco abierto"><div class="product-img"><img src="producto22.png" alt="Terrario"></div><div class="product-info"><h4>Terrario Desértico</h4><p>Paisaje árido en miniatura.</p><span class="price">S/ 65.00</span><div class="btn-group"><button class="btn-secondary" onclick="openModal('modal22')">Ver Detalle</button><button class="btn-icon" onclick="addToCart('Terrario Desértico', 65, 'producto22.png')"><i class="fa-solid fa-cart-plus"></i></button></div></div></div>
+                <div class="product-card" data-category="terrario" data-price="65" data-keywords="camino escalera zen meditacion"><div class="product-img"><img src="producto23.png" alt="Camino"></div><div class="product-info"><h4>Terrario “Camino”</h4><p>Paisaje con camino de piedras.</p><span class="price">S/ 65.00</span><div class="btn-group"><button class="btn-secondary" onclick="openModal('modal23')">Ver Detalle</button><button class="btn-icon" onclick="addToCart('Terrario Camino Ascendente', 65, 'producto23.png')"><i class="fa-solid fa-cart-plus"></i></button></div></div></div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="promociones" class="promo-banner reveal">
+        <div class="container promo-content">
+            <h3>Oferta de Lanzamiento</h3>
+            <p>Llévate una <strong>Guía de Cuidados</strong> gratis por la compra de cualquier producto</p>
+            <p class="promo-code">Código: HOJA2026</p>
+        </div>
+    </section>
+
+    <section id="faq" class="section-padding reveal">
+        <div class="container">
+            <h3 class="section-title">Preguntas Frecuentes</h3>
+            <div class="faq-wrapper">
+                <div class="faq-item"><button class="faq-question">¿Dónde debo ubicar mi terrario? <i class="fa-solid fa-plus"></i></button><div class="faq-answer"><p>Interiores con luz indirecta brillante (cerca de una ventana, pero sin sol directo que haría "efecto lupa").</p></div></div>
+                <div class="faq-item"><button class="faq-question">¿Cómo es el riego? <i class="fa-solid fa-plus"></i></button><div class="faq-answer"><p>Escaso y puntual. Al ser un sistema cerrado (o semi-cerrado), el ciclo del agua se recicla. Solo se riega cuando se pierde la condensación o el musgo se ve seco al tacto.</p></div></div>
+                <div class="faq-item"><button class="faq-question">¿Requiere poda? <i class="fa-solid fa-plus"></i></button><div class="faq-answer"><p>Uso de tijeras pequeñas para mantener el tamaño de las plantas y que no tapen el "paisaje" diseñado.</p></div></div>
+                <div class="faq-item"><button class="faq-question">¿Qué temperatura necesita? <i class="fa-solid fa-plus"></i></button><div class="faq-answer"><p>Mantener en ambientes frescos, evitando fuentes de calor directo (laptops, hornos).</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="section-padding reveal">
+        <div class="container contact-wrapper">
+            <div class="contact-info">
+                <h3>Contáctanos</h3>
+                <p><strong>"Tu espacio florece con Hoja"</strong>. Escríbenos para pedidos personalizados o corporativos.</p>
+                <ul class="info-list">
+                    <li><i class="fa-solid fa-phone"></i> 906 742 685</li>
+                    <li><i class="fa-solid fa-envelope"></i> hoja.per@gmail.com</li>
+                    <li><i class="fa-solid fa-location-dot"></i> San Martín de Porres, Lima</li>
+                </ul>
+                <div class="socials">
+                    <a href="https://www.instagram.com/hoja_pe/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/profile.php?id=100080274788555" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form action="#" method="POST">
+                    <div class="form-group"><label for="nombre">Nombre Completo</label><input type="text" id="nombre" name="nombre" placeholder="Ej: Juan Pérez" required></div>
+                    <div class="form-group"><label for="email">Correo Electrónico</label><input type="email" id="email" name="email" placeholder="juan@correo.com" required></div>
+                    <div class="form-group"><label for="telefono">Celular</label><input type="tel" id="telefono" name="telefono" placeholder="906 742 685"></div>
+                    <div class="form-group"><label for="mensaje">Mensaje</label><textarea id="mensaje" name="mensaje" rows="4" placeholder="Cuéntanos qué necesitas..."></textarea></div>
+                    <button type="submit" class="btn-primary full-width">Enviar Solicitud</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <a href="https://api.whatsapp.com/send/?phone=51906742685&text=Hola%21+Vengo+de+Hoja.pe%21" class="whatsapp-float" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+
+    <footer>
+        <div class="container footer-content"><p>&copy; 2026 HOJA - Plant Boutique. Todos los derechos reservados.</p></div>
+    </footer>
+
+    <div id="modal1" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('modal1')">&times;</span><div class="modal-header"><h3>Siempreviva Telaraña</h3></div><div class="modal-body"><div class="modal-col-img"><img src="producto1.png"></div><div class="modal-col-info"><p>Rosetas verdes compactas que presentan filamentos blancos entre las hojas, similar a telaraña.</p><div class="care-guide"><h4>Cuidados</h4><span><i class="fa-solid fa-droplet"></i> Riego: Cada 15 dias</span><span><i class="fa-solid fa-sun"></i> Luz: Sol directo</span></div><h4 class="modal-price">S/ 15.00</h4><button class="btn-primary full-width" onclick="addToCart('Siempreviva Telaraña', 15, 'producto1.png'); closeModal('modal1')">Agregar al Carrito</button></div></div></div></div>
+    <div id="modal2" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('modal2')">&times;</span><div class="modal-header"><h3>Pothos N´Joy</h3></div><div class="modal-body"><div class="modal-col-img"><img src="producto2.png"></div><div class="modal-col-info"><p>Variegación blanco-crema bien definida en los bordes, con verde sólido al centro.</p><div class="care-guide"><h4>Cuidados</h4><span><i class="fa-solid fa-droplet"></i> Riego: Moderado</span><span><i class="fa-solid fa-sun"></i> Luz: Indirecta brillante</span></div><h4 class="modal-price">S/ 37.00</h4><button class="btn-primary full-width" onclick="addToCart('Pothos N´Joy', 37, 'producto2.png'); closeModal('modal2')">Agregar al Carrito</button></div></div></div></div>
+    <div id="modal3" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('modal3')">&times;</span><div class="modal-header"><h3>Monstera Adansonii</h3></div><div class="modal-body"><div class="modal-col-img"><img src="producto3.png"></div><div class="modal-col-info"><p>Hojas que presentan fenestraciones naturales. Puede ser trepadora o colgante.</p><div class="care-guide"><h4>Cuidados</h4><span><i class="fa-solid fa-droplet"></i> Riego: Moderado</span><span><i class="fa-solid fa-sun"></i> Luz: Indirecta brillante</span></div><h4 class="modal-price">S/ 43.00</h4><button class="btn-primary full-width" onclick="addToCart('Monstera Adansonii', 43, 'producto3.png'); closeModal('modal3')">Agregar al Carrito</button></div></div></div></div>
+    <div id="modal4" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('modal4')">&times;</span><div class="modal-header"><h3>Bonsái de Jade</h3></div><div class="modal-body"><div class="modal-col-img"><img src="producto4.png"></div><div class="modal-col-info"><p>Suculenta resistente y longeva, simboliza prosperidad y buena fortuna.</p><div class="tech-specs"><h4>Arquitectura</h4><ul><li>Musgo natural</li><li>Piedras decorativas</li><li>Sustrato premium</li></ul></div><div class="care-guide"><h4>Cuidados</h4><span><i class="fa-solid fa-droplet"></i> Riego: Escaso</span><span><i class="fa-solid fa-sun"></i> Luz: Abundante luz natural</span></div><h4 class="modal-price">S/ 45.00</h4><button class="btn-primary full-width" onclick="addToCart('Bonsái de Jade', 45, 'producto4.png'); closeModal('modal4')">Agregar al Carrito</button></div></div></div></div>
+    <div id="modal5" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('modal5')">&times;</span><div class="modal-header"><h3>Pilea Watermelon</h3></div><div class="modal-body"><div class="modal-col-img"><img src="producto5.png"></div><div class="modal-col-info"><p>Hojas redondeadas y carnosas con rayas plateadas y verdes que recuerdan a la cáscara de una sandía.</p><div class="care-guide"><h4>Cuidados</h4><span><i class="fa-solid fa-droplet"></i> Riego: Moderado</span><span><i class="fa-solid fa-sun"></i> Luz: Indirecta brillante</span></div><h4 class="modal-price">S/ 40.00</h4><button class="btn-primary full-width" onclick="addToCart('Pilea Watermelon', 40, 'producto5.png'); closeModal('modal5')">Agregar al Carrito</button></div></div></div></div>
+    <div id="modal6" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('modal6')">&times;</span><div class="modal-header"><h3>Dieffenbachia Camille</h3></div><div class="modal-body"><div class="modal-col-img"><img src="producto6.png"></div><div class="modal-col-info"><p>Hojas grandes y alargadas, con variegación crema/blanco en el centro. <strong>¡Tóxica si se ingiere!</strong></p><div class="care-guide"><h4>Cuidados</h4><span><i class="fa-solid fa-droplet"></i> Riego: Moderado</span><span><i class="fa-solid fa-sun"></i> Luz: Indirecta brillante</span></div><h4 class="modal-price">S/ 61.00</h4><button class="btn-primary full-width" onclick="addToCart('Dieffenbachia Camille', 61, 'producto6.png'); closeModal('modal6')">Agregar al Carrito</button></div></div></div></div>
+    <div id="modal7" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('modal7')">&times;</span><div class="modal-header"><h3>Pothos Neon</h3></div><div class="modal-body"><div class="modal-col-img"><img src="producto7.png"></div><div class="modal-col-info"><p>Hojas en forma de corazón con color verde lima a amarillo neón intenso.</p><div class="care-guide"><h4>Cuidados</h4><span><i class="fa-solid fa-droplet"></i> Riego: Moderado</span><span><i class="fa-solid fa-sun"></i> Luz: Indirecta brillante</span></div><h4 class="modal-price">S/ 37.00</h4><button class="btn-primary full-width" onclick="addToCart('Pothos Neon', 37, 'producto7.png'); closeModal('modal7')">Agregar al Carrito</button></div></div></div></div>
+    <div id="modal8" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('modal8')">&times;</span><div class="modal-header"><h3>Orejas de Shrek</h3></div><div class="modal-body"><div class="modal-col-img"><img src="producto8.png"></div><div class="modal-col-info"><p>Hojas carnosas, alargadas, con la punta en forma de ventosa que se tornan rojizas al estar expuesta a mucha luz.</p><div class="care-guide"><h4>Cuidados</h4><span><i class="fa-solid fa-droplet"></i> Riego: Cada 15 dias</span><span><i class="fa-solid fa-sun"></i> Luz: Sol directo suave</span></div><h4 class="modal-price">S/ 12.00</h4><button class="btn-primary full-width" onclick="addToCart('Orejas de Shrek', 12, 'producto8.png'); closeModal('modal8')">Agregar al Carrito</button></div></div></div></div>
+    <div id="modal9" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('modal9')">&times;</span><div class="modal-header"><h3>Rosario de Perlas</h3></div><div class="modal-body"><div class="modal-col-img"><img src="producto9.png"></div><div class="modal-col-info"><p>Tallos colgantes con hojas esféricas que parecen pequeñas perlas verdes.</p><div class="care-guide"><h4>Cuidados</h4><span><i class="fa-solid fa-droplet"></i> Riego: Cada 10 dias</span><span><i class="fa-solid fa-sun"></i> Luz: Indirecta brillante</span></div><h4 class="modal-price">S/ 18.00</h4><button class="btn-primary full-width" onclick="addToCart('Rosario de Perlas', 18, 'producto9.png'); closeModal('modal9')">Agregar al Carrito</button></div></div></div></div>
+    <div id="modal10" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('modal10')">&times;</span><div class="modal-header"><h3>Tutor de Musgo</h3></div><div class="modal-body"><div class="modal-col-img"><img src="producto10.png"></div><div class="modal-col-info"><p>Proporciona soporte vertical a plantas trepadoras, imitando su crecimiento natural.</p><div class="tech-specs"><h4>Composición</h4><ul><li>Musgo seco</li><li>Corteza natural</li><li>Fibra vegetal</li></ul></div><div class="care-guide"><h4>Cuidados</h4><span><i class="fa-solid fa-droplet"></i> Riego: Mantener ligeramente húmedo</span></div><h4 class="modal-price">A Cotizar</h4><button class="btn-primary full-width" onclick="addToCart('Tutor de Musgo', 0, 'producto10.png'); closeModal('modal10')">Cotizar Medidas</button></div></div></div></div>
+    <div id="modal11" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('modal11')">&times;</span><div class="modal-header"><h3>Calathea Ornata</h3></div><div class="modal-body"><div class="modal-col-img"><img src="producto11.png"></div><div class="modal-col-info"><p>Hojas con finas líneas rosadas y cremas.</p><div class="care-guide"><h4>Cuidados</h4><span><i class="fa-solid fa-droplet"></i> Riego: Moderado</span><span><i class="fa-solid fa-sun"></i> Luz: Indirecta brillante</span></div><h4 class="modal-price">S/ 75.00</h4><button class="btn-primary full-width" onclick="addToCart('Calathea Ornata', 75, 'producto11.png'); closeModal('modal11')">Agregar al Carrito</button></div></div></div></div>
+    <div id="modal12" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('modal12')">&times;</span><div class="modal-header"><h3>Venus Atrapamoscas</h3></div><div class="modal-body"><div class="modal-col-img"><img src="producto12.png"></div><div class="modal-col-info"><p>Trampas articuladas con “dientes” en los bordes que se puede tornar rojizo en el interior con buena luz.</p><div class="care-guide"><h4>Cuidados</h4><span><i class="fa-solid fa-droplet"></i> Riego: Sustrato siempre húmedo</span><span><i class="fa-solid fa-sun"></i> Luz: Sol directo (por horas)</span></div><h4 class="modal-price">S/ 65.00</h4><button class="btn-primary full-width" onclick="addToCart('Venus Atrapamoscas', 65, 'producto12.png'); closeModal('modal12')">Agregar al Carrito</button></div></div></div></div>
+    <div id="modal13" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('modal13')">&times;</span><div class="modal-header"><h3>Corona de Cristo</h3></div><div class="modal-body"><div class="modal-col-img"><img src="producto13.png"></div><div class="modal-col-info"><p>Hojas ovaladas y carnosas que sostienen las flores de color rosado/rojo presentes todo el año. <strong>Precaución:</strong> Látex irritante.</p><div class="care-guide"><h4>Cuidados</h4><span><i class="fa-solid fa-droplet"></i> Riego: Bajo</span><span><i class="fa-solid fa-sun"></i> Luz: Sol directo</span></div><h4 class="modal-price">S/ 35.00</h4><button class="btn-primary full-width" onclick="addToCart('Corona de Cristo', 35, 'producto13.png'); closeModal('modal13')">Agregar al Carrito</button></div></div></div></div>
+    <div id="modal14" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('modal14')">&times;</span><div class="modal-header"><h3>Stromanthe Tricolor</h3></div><div class="modal-body"><div class="modal-col-img"><img src="producto14.png"></div><div class="modal-col-info"><p>Hojas alargadas con patrón verde, crema y rosado, cuyo reverso es fucsia/rosado.</p><div class="care-guide"><h4>Cuidados</h4><span><i class="fa-solid fa-droplet"></i> Riego: Regular</span><span><i class="fa-solid fa-sun"></i> Luz: Indirecta brillante</span></div><h4 class="modal-price">S/ 82.00</h4><button class="btn-primary full-width" onclick="addToCart('Stromanthe Tricolor', 82, 'producto14.png'); closeModal('modal14')">Agregar al Carrito</button></div></div></div></div>
+    <div id="modal15" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('modal15')">&times;</span><div class="modal-header"><h3>Coleus</h3></div><div class="modal-body"><div class="modal-col-img"><img src="producto15.png"></div><div class="modal-col-info"><p>Hojas dentadas, muy decorativas, con tonos rosados, verdes y marrones.</p><div class="care-guide"><h4>Cuidados</h4><span><i class="fa-solid fa-droplet"></i> Riego: Regular</span><span><i class="fa-solid fa-sun"></i> Luz: Indirecta brillante</span></div><h4 class="modal-price">S/ 35.00</h4><button class="btn-primary full-width" onclick="addToCart('Coleus', 35, 'producto15.png'); closeModal('modal15')">Agregar al Carrito</button></div></div></div></div>
+    <div id="modal16" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('modal16')">&times;</span><div class="modal-header"><h3>Goeppertia</h3></div><div class="modal-body"><div class="modal-col-img"><img src="producto16.png"></div><div class="modal-col-info"><p>Hojas ovaladas de color verde claro con patrones de color verde oscuro.</p><div class="care-guide"><h4>Cuidados</h4><span><i class="fa-solid fa-droplet"></i> Riego: Regular</span><span><i class="fa-solid fa-sun"></i> Luz: Indirecta brillante</span></div><h4 class="modal-price">S/ 45.00</h4><button class="btn-primary full-width" onclick="addToCart('Goeppertia', 45, 'producto16.png'); closeModal('modal16')">Agregar al Carrito</button></div></div></div></div>
+    <div id="modal17" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('modal17')">&times;</span><div class="modal-header"><h3>Costilla de Adán</h3></div><div class="modal-body"><div class="modal-col-img"><img src="producto17.png"></div><div class="modal-col-info"><p>Hojas grandes, brillantes y de color verde intenso con hendiduras naturales.</p><div class="care-guide"><h4>Cuidados</h4><span><i class="fa-solid fa-droplet"></i> Riego: Moderado</span><span><i class="fa-solid fa-sun"></i> Luz: Indirecta brillante</span></div><h4 class="modal-price">S/ 85.00</h4><button class="btn-primary full-width" onclick="addToCart('Costilla de Adán', 85, 'producto17.png'); closeModal('modal17')">Agregar al Carrito</button></div></div></div></div>
+    <div id="modal18" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('modal18')">&times;</span><div class="modal-header"><h3>Jardinera de Suculentas</h3></div><div class="modal-body"><div class="modal-col-img"><img src="producto18.png"></div><div class="modal-col-info"><p>Jardinera de madera natural, con suculentas diversas, dispuestas para conformar un arreglo.</p><div class="tech-specs"><h4>Arquitectura</h4><ul><li>Sistema de drenaje</li><li>Sustrato para suculentas</li><li>Madera natural</li></ul></div><div class="care-guide"><h4>Cuidados</h4><span><i class="fa-solid fa-droplet"></i> Riego: Cada 15 dias</span><span><i class="fa-solid fa-sun"></i> Luz: Directa</span></div><h4 class="modal-price">S/ 75.00</h4><button class="btn-primary full-width" onclick="addToCart('Jardinera de Suculentas', 75, 'producto18.png'); closeModal('modal18')">Agregar al Carrito</button></div></div></div></div>
+    <div id="modal19" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('modal19')">&times;</span><div class="modal-header"><h3>Bonsái Aralia</h3></div><div class="modal-body"><div class="modal-col-img"><img src="producto19.png"></div><div class="modal-col-info"><p>Composición que recrea un paisaje vivo, asociado a la armonía, la calma y la longevidad.</p><div class="tech-specs"><h4>Arquitectura</h4><ul><li>Musgo natural</li><li>Piedras decorativas</li><li>Grullas miniatura</li></ul></div><div class="care-guide"><h4>Cuidados</h4><span><i class="fa-solid fa-droplet"></i> Riego: Moderado</span><span><i class="fa-solid fa-sun"></i> Luz: Directa</span></div><h4 class="modal-price">S/ 85.00</h4><button class="btn-primary full-width" onclick="addToCart('Bonsái Aralia', 85, 'producto19.png'); closeModal('modal19')">Agregar al Carrito</button></div></div></div></div>
+    <div id="modal20" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('modal20')">&times;</span><div class="modal-header"><h3>Terrario "Lomas"</h3></div><div class="modal-body"><div class="modal-col-img"><img src="producto20.png"></div><div class="modal-col-info"><p>Paisaje sereno con lomas cubiertas de musgo que convergen en un valle central.</p><div class="tech-specs"><h4>Arquitectura</h4><ul><li>Musgo natural</li><li>Piedras decorativas</li><li>Sistema de drenaje</li></ul></div><div class="care-guide"><h4>Cuidados</h4><span><i class="fa-solid fa-droplet"></i> Riego: Regular</span><span><i class="fa-solid fa-sun"></i> Luz: Indirecta suave</span></div><h4 class="modal-price">S/ 65.00</h4><button class="btn-primary full-width" onclick="addToCart('Terrario Lomas', 65, 'producto20.png'); closeModal('modal20')">Agregar al Carrito</button></div></div></div></div>
+    <div id="modal21" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('modal21')">&times;</span><div class="modal-header"><h3>Terrario "Cuevas"</h3></div><div class="modal-body"><div class="modal-col-img"><img src="producto21.png"></div><div class="modal-col-info"><p>Paisaje vivo, inspirado en cuevas conectadas mediante una escalera de piedras.</p><div class="tech-specs"><h4>Arquitectura</h4><ul><li>Musgo natural</li><li>Corazón de María</li><li>Piedras decorativas</li></ul></div><div class="care-guide"><h4>Cuidados</h4><span><i class="fa-solid fa-droplet"></i> Riego: Regular</span><span><i class="fa-solid fa-sun"></i> Luz: Indirecta suave</span></div><h4 class="modal-price">S/ 65.00</h4><button class="btn-primary full-width" onclick="addToCart('Terrario Cuevas', 65, 'producto21.png'); closeModal('modal21')">Agregar al Carrito</button></div></div></div></div>
+    <div id="modal22" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('modal22')">&times;</span><div class="modal-header"><h3>Terrario</h3></div><div class="modal-body"><div class="modal-col-img"><img src="producto22.png"></div><div class="modal-col-info"><p>Paisaje árido en miniatura, inspirado en ecosistemas desérticos.</p><div class="tech-specs"><h4>Arquitectura</h4><ul><li>Suculentas y cactus</li><li>Corteza</li><li>Piedras decorativas</li></ul></div><div class="care-guide"><h4>Cuidados</h4><span><i class="fa-solid fa-droplet"></i> Riego: Cada 15 dias</span><span><i class="fa-solid fa-sun"></i> Luz: Indirecta suave</span></div><h4 class="modal-price">S/ 65.00</h4><button class="btn-primary full-width" onclick="addToCart('Terrario Desértico', 65, 'producto22.png'); closeModal('modal22')">Agregar al Carrito</button></div></div></div></div>
+    <div id="modal23" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('modal23')">&times;</span><div class="modal-header"><h3>Terrario “Camino”</h3></div><div class="modal-body"><div class="modal-col-img"><img src="producto23.png"></div><div class="modal-col-info"><p>Paisaje contemplativo que inicia con un camino de piedras decorativas.</p><div class="tech-specs"><h4>Arquitectura</h4><ul><li>Musgo natural</li><li>Corazón de María</li><li>Piedras decorativas</li></ul></div><div class="care-guide"><h4>Cuidados</h4><span><i class="fa-solid fa-droplet"></i> Riego: Regular</span><span><i class="fa-solid fa-sun"></i> Luz: Indirecta suave</span></div><h4 class="modal-price">S/ 65.00</h4><button class="btn-primary full-width" onclick="addToCart('Terrario Camino Ascendente', 65, 'producto23.png'); closeModal('modal23')">Agregar al Carrito</button></div></div></div></div>
+
+    <script>
+        // CARRITO
+        let cart = [];
+        function toggleCart() {
+            document.getElementById('cart-sidebar').classList.toggle('active');
+            document.getElementById('cart-overlay').classList.toggle('active');
+        }
+        function addToCart(name, price, image) {
+            const existingItem = cart.find(item => item.name === name);
+            if (existingItem) { existingItem.quantity++; } else { cart.push({ name, price, image, quantity: 1 }); }
+            updateCartUI();
+            toggleCart();
+        }
+        function removeFromCart(index) { cart.splice(index, 1); updateCartUI(); }
+        function clearCart() { cart = []; updateCartUI(); }
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            const cartTotal = document.getElementById('cart-total-price');
+            cartItemsContainer.innerHTML = '';
+            let total = 0; let count = 0;
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="empty-cart-msg">Tu carrito está vacío.</p>';
+            } else {
+                cart.forEach((item, index) => {
+                    total += item.price * item.quantity;
+                    count += item.quantity;
+                    const displayPrice = item.price === 0 ? "A cotizar" : `S/ ${item.price.toFixed(2)}`;
+                    const itemElement = document.createElement('div');
+                    itemElement.classList.add('cart-item');
+                    itemElement.innerHTML = `<img src="${item.image}" alt="${item.name}"><div class="cart-item-info"><h4>${item.name}</h4><p>${displayPrice} x ${item.quantity}</p></div><span class="remove-item" onclick="removeFromCart(${index})"><i class="fa-solid fa-trash"></i></span>`;
+                    cartItemsContainer.appendChild(itemElement);
+                });
+            }
+            cartCount.textContent = count;
+            cartTotal.textContent = `S/ ${total.toFixed(2)}`;
+        }
+        
+        // CHECKOUT WHATSAPP SIN TOTAL EN MENSAJE Y CON FORMULARIO
+        function checkoutWhatsApp() {
+            if (cart.length === 0) return alert('El carrito está vacío');
+            let message = "Hola Hoja, me gustaría realizar el siguiente pedido:%0A--------------------------------%0A";
+            cart.forEach(item => {
+                const priceTxt = item.price === 0 ? "A cotizar" : `S/ ${item.price}`;
+                message += `🌱 ${item.quantity}x ${item.name} (${priceTxt})%0A`;
+            });
+            message += "%0A--------------------------------%0A*Mis datos para cotizar el envío:*%0A";
+            message += "👤 Nombre: %0A";
+            message += "📍 Distrito/Dirección: %0A";
+            message += "💳 Medio de pago (Yape/Plin): ";
+            window.open(`https://api.whatsapp.com/send/?phone=51906742685&text=${message}`, '_blank');
+        }
+
+        // LÓGICA DE FILTRADO Y BÚSQUEDA
+        let currentCategory = 'all';
+
+        function setCategory(category) {
+            currentCategory = category;
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.dataset.category === category) btn.classList.add('active');
+            });
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const searchInput = document.getElementById('search-input').value.toLowerCase();
+            const sortValue = document.getElementById('sort-select').value;
+            const grid = document.getElementById('product-grid');
+            const products = Array.from(document.querySelectorAll('.product-card'));
+            
+            // Lógica de "Nueva Página" para búsqueda
+            const isSearching = searchInput.length > 0;
+            const heroSection = document.getElementById('hero-section');
+            const aboutSection = document.getElementById('about-section');
+            const marqueeSection = document.getElementById('marquee-section');
+            const resultsHeader = document.getElementById('search-results-header');
+            const catalogTitle = document.getElementById('catalog-title');
+
+            if (isSearching) {
+                if(heroSection) heroSection.style.display = 'none';
+                if(aboutSection) aboutSection.style.display = 'none';
+                if(marqueeSection) marqueeSection.style.display = 'none';
+                if(resultsHeader) {
+                    resultsHeader.style.display = 'block';
+                    resultsHeader.querySelector('h2').innerText = `Resultados para: "${searchInput}"`;
+                }
+                if(catalogTitle) catalogTitle.style.display = 'none';
+            } else {
+                if(heroSection) heroSection.style.display = 'flex';
+                if(aboutSection) aboutSection.style.display = 'block';
+                if(marqueeSection) marqueeSection.style.display = 'block';
+                if(resultsHeader) resultsHeader.style.display = 'none';
+                if(catalogTitle) catalogTitle.style.display = 'block';
+            }
+
+            products.forEach(product => {
+                const pCategory = product.dataset.category;
+                const pName = product.querySelector('h4').innerText.toLowerCase();
+                const pKeywords = product.dataset.keywords ? product.dataset.keywords.toLowerCase() : "";
+                
+                const matchCategory = currentCategory === 'all' || pCategory.includes(currentCategory);
+                const matchSearch = pName.includes(searchInput) || pKeywords.includes(searchInput);
+
+                if (matchCategory && matchSearch) {
+                    product.classList.remove('hide');
+                    product.classList.add('show');
+                    product.style.display = 'block';
+                } else {
+                    product.classList.add('hide');
+                    product.classList.remove('show');
+                    product.style.display = 'none';
+                }
+            });
+
+            // Ordenamiento
+            const visibleProducts = products.filter(p => p.style.display !== 'none');
+            visibleProducts.sort((a, b) => {
+                const priceA = parseFloat(a.dataset.price);
+                const priceB = parseFloat(b.dataset.price);
+                if (sortValue === 'asc') return priceA - priceB;
+                if (sortValue === 'desc') return priceB - priceA;
+                return 0;
+            });
+
+            visibleProducts.forEach(p => grid.appendChild(p));
+        }
+
+        // Lógica de URL para búsqueda
+        window.onload = function() {
+            const params = new URLSearchParams(window.location.search);
+            const query = params.get('q');
+            if (query) {
+                document.getElementById('search-input').value = query;
+                applyFilters();
+                document.getElementById('catalogo').scrollIntoView();
+            }
+        }
+
+        // MODALES
+        function openModal(modalId) { document.getElementById(modalId).style.display = "flex"; }
+        function closeModal(modalId) { document.getElementById(modalId).style.display = "none"; }
+        window.onclick = function(event) { if (event.target.classList.contains('modal')) event.target.style.display = "none"; }
+
+        // FAQ
+        document.querySelectorAll('.faq-question').forEach(q => q.addEventListener('click', () => q.parentElement.classList.toggle('active')));
+
+        // SCROLL
+        window.addEventListener('scroll', () => document.querySelectorAll('.reveal').forEach(r => {
+            if (r.getBoundingClientRect().top < window.innerHeight - 150) r.classList.add('active');
+        }));
+        document.dispatchEvent(new Event('scroll'));
+    </script>
+</body>
+</html>
