@@ -13,52 +13,27 @@
 <body>
 
     <header id="main-header">
-        <!-- BARRA SUPERIOR ADICIONAL -->
-        <div class="top-bar">
-            <div class="container">
-                <div class="top-bar-content">
-                    <div class="socials-top">
-                        <a href="https://www.instagram.com/hoja_pe/" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="https://www.facebook.com/profile.php?id=100080274788555" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="#" target="_blank" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
-                    </div>
-                    <div class="marquee-top">
-                        <span>• ENVÍOS A TODO LIMA • DISEÑOS EXCLUSIVOS •</span>
-                    </div>
-                    <div class="contact-top">
-                        <a href="#contacto">Contacto</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- ENCABEZADO PRINCIPAL REESTRUCTURADO -->
         <div class="container header-content">
-            <div class="header-left">
-                <div class="search-box">
-                    <input type="text" id="search-input" placeholder="Buscar planta..." onkeyup="applyFilters()">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </div>
-            </div>
-            
             <div class="logo">
                 <a href="index.html">
                     <img src="LOGO SIN FONDO-Photoroom.png" alt="HOJA Logo" class="logo-img">
                 </a>
             </div>
-            
-            <div class="header-right">
-                <nav>
-                    <ul>
-                        <li><a href="index.html">Inicio</a></li>
-                        <li><a href="#catalogo">Catálogo</a></li>
-                    </ul>
-                </nav>
-                <div class="cart-icon" onclick="toggleCart()">
-                    <i class="fa-solid fa-bag-shopping"></i>
-                    <span id="cart-count">0</span>
-                </div>
-            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="#catalogo">Catálogo</a></li>
+                    <li><a href="#contacto" class="btn-contact">Contacto</a></li>
+                    <li class="search-box">
+                        <input type="text" id="search-input" placeholder="Buscar planta..." onkeyup="applyFilters()">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </li>
+                    <li class="cart-icon" onclick="toggleCart()">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span id="cart-count">0</span>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </header>
 
